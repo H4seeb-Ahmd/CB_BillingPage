@@ -73,11 +73,32 @@
                 <tr>
                     <th style="width: 50px;">No.</th>
                     <th style="width: 250px; max-width: 250px; word-wrap: break-word; overflow-wrap: break-word;">Product Name</th>
-                    <th style="width: 50px;">Rate</th>
+                    <th style="width: 50px;">Rate(₹)</th>
                     <th style="width: 50px;">Qty</th>
-                    <th style="width: 50px;">Amount</th>
+                    <th style="width: 50px;">Amount(₹)</th>
                 </tr>
             </table>
+
+            <table border="1" id="total">
+                <tr>
+                    <th style="width: 50px;">Total(₹)</th>
+                    <td style="width: 50px;" id="total_amount">0.00</td>
+                </tr>
+                <tr>
+                    <th style="width: 50px;">CGST(2.5%)</th>
+                    <td style="width: 50px;" id="cgst">0.00</td>
+                </tr>
+                <tr>
+                    <th style="width: 50px;">SGST(2.5%)</th>
+                    <td style="width: 50px;" id="sgst">0.00</td>
+                </tr>
+                <tr>
+                    <th style="width: 50px;">Final(₹)</th>
+                    <td style="width: 50px;" id="final">0.00</td>
+                </tr>
+            </table>
+
+            <button onclick="printInvoice()">🖶</button>
 
         </main>
 
@@ -127,6 +148,7 @@
                     itemEntryForm.elements[2].value = cellQty.textContent;
                     // Remove row for re-adding after edit
                     itemListTable.deleteRow(newRow.rowIndex);
+                    renumberRows();
                 };
                 cellEdit.appendChild(editBtn);
 
@@ -139,6 +161,8 @@
                     renumberRows();
                 };
                 cellDelete.appendChild(delBtn);
+
+                updateTotal()
 
                 itemEntryForm.reset();
                 } 
@@ -155,6 +179,31 @@
             {
                 itemListTable.rows[i].cells[0].textContent = i; // Update row number
             }
+        }
+        function updateTotal() 
+        {
+            const itemListTable = document.getElementById('item_list');
+            let total = 0;
+
+            for (let i = 1; i < itemListTable.rows.length; i++) 
+            {
+                const amount = parseFloat(itemListTable.rows[i].cells[4].textContent);
+                total += amount;
+            }
+
+            const cgst = total * 0.025;
+            const sgst = total * 0.025;
+            const finalTotal = total + cgst + sgst;
+
+            document.getElementById('total_amount').textContent = total.toFixed(2);
+            document.getElementById('cgst').textContent = cgst.toFixed(2);
+            document.getElementById('sgst').textContent = sgst.toFixed(2);
+            document.getElementById('final').textContent = finalTotal.toFixed(2);
+        }
+
+        function printInvoice() 
+        {
+            window.print();
         }
     </script>
 
