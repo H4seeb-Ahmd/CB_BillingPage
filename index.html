@@ -63,7 +63,7 @@
                         <td><input type="text" style="width: 250px;"></td>
                         <td><input type="number" step="0.01" style="width: 50px;"></td>
                         <td><input type="number" step="1" style="width: 50px;"></td>
-                        <td><button onclick="addItem()">+</button></td>
+                        <td><button type="button" onclick="addItem()">+</button></td>
                         <td><input type="reset" style="font-family: monospace;" title="CLEAR" value="×"></td>
                     </form>
                 </tr>
@@ -72,7 +72,7 @@
             <table border="1" id="item_list">
                 <tr>
                     <th style="width: 50px;">No.</th>
-                    <th style="width: 250px;">Product Name</th>
+                    <th style="width: 250px; max-width: 250px; word-wrap: break-word; overflow-wrap: break-word;">Product Name</th>
                     <th style="width: 50px;">Rate</th>
                     <th style="width: 50px;">Qty</th>
                     <th style="width: 50px;">Amount</th>
@@ -82,7 +82,8 @@
         </main>
 
         <footer>
-
+            <br><hr><br>
+            &copy; 2025 All rights reserved.
         </footer>
 
     </body>
@@ -106,6 +107,8 @@
                 const cellRate = newRow.insertCell(2);
                 const cellQty = newRow.insertCell(3);
                 const cellAmount = newRow.insertCell(4);
+                const cellEdit = newRow.insertCell(5);
+                const cellDelete = newRow.insertCell(6);
 
                 cellNo.textContent = itemListTable.rows.length - 1; // Adjust for header row
                 cellName.textContent = productName;
@@ -113,11 +116,44 @@
                 cellQty.textContent = qty;
                 cellAmount.textContent = amount.toFixed(2);
 
+                // Edit button
+                const editBtn = document.createElement('button');
+                editBtn.textContent = '✎';
+                editBtn.onclick = function() 
+                {
+                    // Simple edit: fill form with row data
+                    itemEntryForm.elements[0].value = cellName.textContent;
+                    itemEntryForm.elements[1].value = cellRate.textContent;
+                    itemEntryForm.elements[2].value = cellQty.textContent;
+                    // Remove row for re-adding after edit
+                    itemListTable.deleteRow(newRow.rowIndex);
+                };
+                cellEdit.appendChild(editBtn);
+
+                // Delete button
+                const delBtn = document.createElement('button');
+                delBtn.textContent = '🗑';
+                delBtn.onclick = function() 
+                {
+                    itemListTable.deleteRow(newRow.rowIndex);
+                    renumberRows();
+                };
+                cellDelete.appendChild(delBtn);
+
                 itemEntryForm.reset();
-            } 
+                } 
             else 
             {
                 alert("Please fill in all fields correctly.");
+            }
+        }
+
+        function renumberRows() 
+        {
+            const itemListTable = document.getElementById('item_list');
+            for (let i = 1; i < itemListTable.rows.length; i++) 
+            {
+                itemListTable.rows[i].cells[0].textContent = i; // Update row number
             }
         }
     </script>
