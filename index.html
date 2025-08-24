@@ -8,7 +8,7 @@
         <title>CB Billing Page</title>
     </head>
     
-    <body style="font-family: monospace;">
+    <body style="font-family: monospace">
         
         <header>
             <h1>CB BILLING PAGE</h1>
@@ -18,7 +18,7 @@
         <main>
             <u>INVOICE DETAILS</u>
             <br><br>
-            <form>
+            <form id="inv_det">
 
                 <label for="inv_num">INVOICE NO.:</label>
                 <input type="text" id="inv_num" required style="font-family: monospace;">
@@ -43,23 +43,39 @@
                 <input type="date" id="date" required style="font-family: monospace;">
                 <br>
 
-                <input type="reset">
+                <input type="reset" style="font-family: monospace;" title="CLEAR" value="CLEAR">
                 <br>
 
                 <br><hr><br>
 
             </form>
 
-            <table style="justify-content: left;">
+            <table>
                 <tr>
+                    <th width="10"></th>
                     <th width="100">Product Name:</th>
                     <th width="10">Rate:</th>
                     <th width="10">Qty:</th>
                 </tr>
                 <tr>
-                    <td><input type="text"></td>
-                    <td><input type="number"></td>
-                    <td><input type="text"></td>
+                    <form id="item_entry">
+                        <td style="width: 50px;"></td>
+                        <td><input type="text" style="width: 250px;"></td>
+                        <td><input type="number" step="0.01" style="width: 50px;"></td>
+                        <td><input type="number" step="1" style="width: 50px;"></td>
+                        <td><button onclick="addItem()">+</button></td>
+                        <td><input type="reset" style="font-family: monospace;" title="CLEAR" value="×"></td>
+                    </form>
+                </tr>
+            </table>
+            <hr>
+            <table border="1" id="item_list">
+                <tr>
+                    <th style="width: 50px;">No.</th>
+                    <th style="width: 250px;">Product Name</th>
+                    <th style="width: 50px;">Rate</th>
+                    <th style="width: 50px;">Qty</th>
+                    <th style="width: 50px;">Amount</th>
                 </tr>
             </table>
 
@@ -70,5 +86,40 @@
         </footer>
 
     </body>
+
+    <script>
+        function addItem()
+        {
+            const itemEntryForm = document.getElementById('item_entry');
+            const productName = itemEntryForm.elements[0].value;
+            const rate = parseFloat(itemEntryForm.elements[1].value);
+            const qty = parseInt(itemEntryForm.elements[2].value);
+            const amount = rate * qty;
+
+            if (productName && !isNaN(rate) && !isNaN(qty)) 
+            {
+                const itemListTable = document.getElementById('item_list');
+                const newRow = itemListTable.insertRow();
+                
+                const cellNo = newRow.insertCell(0);
+                const cellName = newRow.insertCell(1);
+                const cellRate = newRow.insertCell(2);
+                const cellQty = newRow.insertCell(3);
+                const cellAmount = newRow.insertCell(4);
+
+                cellNo.textContent = itemListTable.rows.length - 1; // Adjust for header row
+                cellName.textContent = productName;
+                cellRate.textContent = rate.toFixed(2);
+                cellQty.textContent = qty;
+                cellAmount.textContent = amount.toFixed(2);
+
+                itemEntryForm.reset();
+            } 
+            else 
+            {
+                alert("Please fill in all fields correctly.");
+            }
+        }
+    </script>
 
 </html>
