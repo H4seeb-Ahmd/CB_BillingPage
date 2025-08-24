@@ -53,15 +53,15 @@
             <table>
                 <tr>
                     <th width="10"></th>
-                    <th width="100">Product Name:</th>
-                    <th width="10">Rate:</th>
-                    <th width="10">Qty:</th>
+                    <th width="100" style="text-align: left;">Product Name:</th>
+                    <th width="10" style="text-align: right;">Rate:</th>
+                    <th width="10" style="text-align: right;">Qty:</th>
                 </tr>
                 <tr>
                     <form id="item_entry">
                         <td style="width: 50px;"></td>
                         <td><input type="text" style="width: 250px;"></td>
-                        <td><input type="number" step="0.01" style="width: 50px;"></td>
+                        <td><input type="number" step="0.01" style="width: 75px;"></td>
                         <td><input type="number" step="1" style="width: 50px;"></td>
                         <td><button type="button" onclick="addItem()">+</button></td>
                         <td><input type="reset" style="font-family: monospace;" title="CLEAR" value="×"></td>
@@ -71,30 +71,30 @@
             <hr>
             <table border="1" id="item_list">
                 <tr>
-                    <th style="width: 50px;">No.</th>
-                    <th style="width: 250px; max-width: 250px; word-wrap: break-word; overflow-wrap: break-word;">Product Name</th>
-                    <th style="width: 50px;">Rate(₹)</th>
-                    <th style="width: 50px;">Qty</th>
-                    <th style="width: 50px;">Amount(₹)</th>
+                    <th style="width: 50px; text-align: center;">No.</th>
+                    <th style="width: 250px; text-align: left;">Product Name</th>
+                    <th style="width: 75px; text-align: right;">Rate(₹)</th>
+                    <th style="width: 50px; text-align: right;">Qty</th>
+                    <th style="width: 75px; text-align: right;">Amount(₹)</th>
                 </tr>
             </table>
 
             <table border="1" id="total">
                 <tr>
-                    <th style="width: 50px;">Total(₹)</th>
-                    <td style="width: 50px;" id="total_amount">0.00</td>
+                    <th style="width: 75px; text-align: left;">Total(₹)</th>
+                    <td style="width: 75px; text-align: right;" id="total_amount">0.00</td>
                 </tr>
                 <tr>
-                    <th style="width: 50px;">CGST(2.5%)</th>
-                    <td style="width: 50px;" id="cgst">0.00</td>
+                    <th style="width: 75px; text-align: left;">CGST(2.5%)</th>
+                    <td style="width: 75px; text-align: right;" id="cgst">0.00</td>
                 </tr>
                 <tr>
-                    <th style="width: 50px;">SGST(2.5%)</th>
-                    <td style="width: 50px;" id="sgst">0.00</td>
+                    <th style="width: 75px; text-align: left;">SGST(2.5%)</th>
+                    <td style="width: 75px; text-align: right;" id="sgst">0.00</td>
                 </tr>
                 <tr>
-                    <th style="width: 50px;">Final(₹)</th>
-                    <td style="width: 50px;" id="final">0.00</td>
+                    <th style="width: 75px; text-align: left;">Final(₹)</th>
+                    <td style="width: 75px; text-align: right;" id="final">0.00</td>
                 </tr>
             </table>
 
