@@ -64,10 +64,10 @@
                 </tr>
                 <tr>
                     <form id="item_entry">
-                        <td style="width: 50px;"></td>
+                        <td style="width: 75px;"></td>
                         <td><input type="text" style="width: 250px; font-family: monospace;" onblur="this.value=this.value.trim();"></td>
                         <td><input type="number" step="0.01" style="width: 75px; font-family: monospace;" min="0.01" onblur="this.value=this.value.trim();"></td>
-                        <td><input type="number" step="1" style="width: 50px; font-family: monospace;" min="1" onblur="this.value=this.value.trim();"></td>
+                        <td><input type="number" step="1" style="width: 75px; font-family: monospace;" min="1" onblur="this.value=this.value.trim();"></td>
                         <td><button type="button" onclick="addItem()" style="font-family: monospace;">+</button></td>
                         <td><input type="reset" style="font-family: monospace;" title="CLEAR" value="×"></td>
                     </form>
@@ -76,29 +76,33 @@
             <hr>
             <table border="1" id="item_list">
                 <tr>
-                    <th style="width: 50px; text-align: center;">No.</th>
+                    <th style="width: 75px; text-align: center;">No.</th>
                     <th style="width: 250px; text-align: left;">Product Name</th>
                     <th style="width: 75px; text-align: right;">Rate(₹)</th>
-                    <th style="width: 50px; text-align: right;">Qty</th>
+                    <th style="width: 75px; text-align: right;">Qty</th>
                     <th style="width: 75px; text-align: right;">Amount(₹)</th>
                 </tr>
             </table>
 
-            <table border="1" id="total">
+            <table border="1" id="total" style="margin-left: 50px;">
                 <tr>
                     <th style="width: 75px; text-align: left;">Total(₹)</th>
+                    <td style="width: 75px;"></td>
                     <td style="width: 75px; text-align: right;" id="total_amount">0.00</td>
                 </tr>
                 <tr>
                     <th style="width: 75px; text-align: left;">CGST(2.5%)</th>
+                    <td style="width: 75px;"></td>
                     <td style="width: 75px; text-align: right;" id="cgst">0.00</td>
                 </tr>
                 <tr>
                     <th style="width: 75px; text-align: left;">SGST(2.5%)</th>
+                    <td style="width: 75px;"></td>
                     <td style="width: 75px; text-align: right;" id="sgst">0.00</td>
                 </tr>
                 <tr>
                     <th style="width: 75px; text-align: left;">Final(₹)</th>
+                    <td style="width: 75px;"></td>
                     <td style="width: 75px; text-align: right;" id="final">0.00</td>
                 </tr>
             </table>
@@ -144,6 +148,13 @@
             cellRate.textContent = rate.toFixed(2);
             cellQty.textContent = qty;
             cellAmount.textContent = amount.toFixed(2);
+
+            // Style for product name cell to handle long names
+            cellName.style.width = "250px";
+            cellName.style.maxWidth = "250px";
+            cellName.style.wordWrap = "break-word";
+            cellName.style.overflowWrap = "break-word";
+            cellName.style.whiteSpace = "normal";
 
             // Edit button
             const editBtn = document.createElement('button');
