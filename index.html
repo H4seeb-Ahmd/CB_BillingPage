@@ -19,36 +19,41 @@
             <u>INVOICE DETAILS</u>
             <br><br>
             <form id="inv_det">
+                <table>
 
-                <label for="inv_num">INVOICE NO.:</label>
-                <input type="text" id="inv_num" required style="font-family: monospace;">
-                <br>
+                    <tr>
+                        <th style="text-align: left;"><label for="inv_num">INVOICE NO.:</label></th>
+                        <td style="text-align: left;"><input type="text" id="inv_num" required style="font-family: monospace; width: 200px;" onblur="this.value=this.value.trim();"></td>
+                    </tr>
 
-                <label for="Name">Name:</label>
-                <input type="text" id="Name" required style="font-family: monospace;">
-                <br>
+                    <tr>
+                        <th style="text-align: left;"><label for="Name">Name:</label></th>
+                        <td style="text-align: left;"><input type="text" id="Name" required style="font-family: monospace; width: 200px;" onblur="this.value=this.value.trim();"></td>
+                    </tr>
 
-                
-                <label for="ph">Phone:</label>
-                <input type="tel" id="ph" pattern="[0-9]{10}" required style="font-family: monospace;">
-                <br>
+                    <tr>
+                        <th style="text-align: left;"><label for="ph">Phone:</label></th>
+                        <td style="text-align: left;"><input type="tel" id="ph" pattern="[0-9+\-]{10}" required style="font-family: monospace; width: 200px;" onblur="this.value=this.value.trim();" oninput="this.value=this.value.replace(/[^0-9+\-]/g, '');"></td>
+                    </tr>
 
+                    <tr>
+                        <th style="text-align: left;"><label for="addr">Address:</label></th>
+                        <td style="text-align: left;"><input type="text" id="addr" required style="font-family: monospace; width: 200px;" onblur="this.value=this.value.trim();"></td>
+                    </tr>
 
-                <label for="addr">Address:</label>
-                <input type="text" id="addr" required style="font-family: monospace;">
-                <br>
+                    <tr>
+                        <th style="text-align: left;"><label for="date">Date:</label></th>
+                        <td style="text-align: left;"><input type="date" id="date" required style="font-family: monospace; width: 200px;" onblur="this.value=this.value.trim();"></td>
+                    </tr>
 
-
-                <label for="date">Date:</label>
-                <input type="date" id="date" required style="font-family: monospace;">
-                <br>
-
-                <input type="reset" style="font-family: monospace;" title="CLEAR" value="CLEAR">
-                <br>
-
-                <br><hr><br>
-
+                    <tr>
+                        <td></td>
+                        <td style="text-align: right;"><input type="reset" style="font-family: monospace;" title="CLEAR" value="CLEAR"></td>
+                    </tr>
+                </table>
             </form>
+
+            <br><hr><br>
 
             <table>
                 <tr>
@@ -60,10 +65,10 @@
                 <tr>
                     <form id="item_entry">
                         <td style="width: 50px;"></td>
-                        <td><input type="text" style="width: 250px;"></td>
-                        <td><input type="number" step="0.01" style="width: 75px;"></td>
-                        <td><input type="number" step="1" style="width: 50px;"></td>
-                        <td><button type="button" onclick="addItem()">+</button></td>
+                        <td><input type="text" style="width: 250px; font-family: monospace;" onblur="this.value=this.value.trim();"></td>
+                        <td><input type="number" step="0.01" style="width: 75px; font-family: monospace;" min="0.01" onblur="this.value=this.value.trim();"></td>
+                        <td><input type="number" step="1" style="width: 50px; font-family: monospace;" min="1" onblur="this.value=this.value.trim();"></td>
+                        <td><button type="button" onclick="addItem()" style="font-family: monospace;">+</button></td>
                         <td><input type="reset" style="font-family: monospace;" title="CLEAR" value="×"></td>
                     </form>
                 </tr>
@@ -98,6 +103,8 @@
                 </tr>
             </table>
 
+            <br>
+
             <button onclick="printInvoice()">🖶</button>
 
         </main>
@@ -108,103 +115,108 @@
         </footer>
 
     </body>
-
-    <script>
-        function addItem()
-        {
-            const itemEntryForm = document.getElementById('item_entry');
-            const productName = itemEntryForm.elements[0].value;
-            const rate = parseFloat(itemEntryForm.elements[1].value);
-            const qty = parseInt(itemEntryForm.elements[2].value);
-            const amount = rate * qty;
-
-            if (productName && !isNaN(rate) && !isNaN(qty)) 
-            {
-                const itemListTable = document.getElementById('item_list');
-                const newRow = itemListTable.insertRow();
-                
-                const cellNo = newRow.insertCell(0);
-                const cellName = newRow.insertCell(1);
-                const cellRate = newRow.insertCell(2);
-                const cellQty = newRow.insertCell(3);
-                const cellAmount = newRow.insertCell(4);
-                const cellEdit = newRow.insertCell(5);
-                const cellDelete = newRow.insertCell(6);
-
-                cellNo.textContent = itemListTable.rows.length - 1; // Adjust for header row
-                cellName.textContent = productName;
-                cellRate.textContent = rate.toFixed(2);
-                cellQty.textContent = qty;
-                cellAmount.textContent = amount.toFixed(2);
-
-                // Edit button
-                const editBtn = document.createElement('button');
-                editBtn.textContent = '✎';
-                editBtn.onclick = function() 
-                {
-                    // Simple edit: fill form with row data
-                    itemEntryForm.elements[0].value = cellName.textContent;
-                    itemEntryForm.elements[1].value = cellRate.textContent;
-                    itemEntryForm.elements[2].value = cellQty.textContent;
-                    // Remove row for re-adding after edit
-                    itemListTable.deleteRow(newRow.rowIndex);
-                    renumberRows();
-                };
-                cellEdit.appendChild(editBtn);
-
-                // Delete button
-                const delBtn = document.createElement('button');
-                delBtn.textContent = '🗑';
-                delBtn.onclick = function() 
-                {
-                    itemListTable.deleteRow(newRow.rowIndex);
-                    renumberRows();
-                };
-                cellDelete.appendChild(delBtn);
-
-                updateTotal()
-
-                itemEntryForm.reset();
-                } 
-            else 
-            {
-                alert("Please fill in all fields correctly.");
-            }
-        }
-
-        function renumberRows() 
-        {
-            const itemListTable = document.getElementById('item_list');
-            for (let i = 1; i < itemListTable.rows.length; i++) 
-            {
-                itemListTable.rows[i].cells[0].textContent = i; // Update row number
-            }
-        }
-        function updateTotal() 
-        {
-            const itemListTable = document.getElementById('item_list');
-            let total = 0;
-
-            for (let i = 1; i < itemListTable.rows.length; i++) 
-            {
-                const amount = parseFloat(itemListTable.rows[i].cells[4].textContent);
-                total += amount;
-            }
-
-            const cgst = total * 0.025;
-            const sgst = total * 0.025;
-            const finalTotal = total + cgst + sgst;
-
-            document.getElementById('total_amount').textContent = total.toFixed(2);
-            document.getElementById('cgst').textContent = cgst.toFixed(2);
-            document.getElementById('sgst').textContent = sgst.toFixed(2);
-            document.getElementById('final').textContent = finalTotal.toFixed(2);
-        }
-
-        function printInvoice() 
-        {
-            window.print();
-        }
-    </script>
-
 </html>
+
+<script>
+    function addItem()
+    {
+        const itemEntryForm = document.getElementById('item_entry');
+        const productName = itemEntryForm.elements[0].value;
+        const rate = parseFloat(itemEntryForm.elements[1].value);
+        const qty = parseInt(itemEntryForm.elements[2].value);
+        const amount = rate * qty;
+
+        if (productName && !isNaN(rate) && !isNaN(qty) && rate >= 0.01 && qty >= 1) 
+        {
+            const itemListTable = document.getElementById('item_list');
+            const newRow = itemListTable.insertRow();
+            
+            const cellNo = newRow.insertCell(0);
+            const cellName = newRow.insertCell(1);
+            const cellRate = newRow.insertCell(2);
+            const cellQty = newRow.insertCell(3);
+            const cellAmount = newRow.insertCell(4);
+            const cellEdit = newRow.insertCell(5);
+            const cellDelete = newRow.insertCell(6);
+
+            cellNo.textContent = itemListTable.rows.length - 1; // Adjust for header row
+            cellName.textContent = productName;
+            cellRate.textContent = rate.toFixed(2);
+            cellQty.textContent = qty;
+            cellAmount.textContent = amount.toFixed(2);
+
+            // Edit button
+            const editBtn = document.createElement('button');
+            editBtn.textContent = '✎';
+            editBtn.onclick = function() 
+            {
+                // Simple edit: fill form with row data
+                itemEntryForm.elements[0].value = cellName.textContent;
+                itemEntryForm.elements[1].value = cellRate.textContent;
+                itemEntryForm.elements[2].value = cellQty.textContent;
+                // Remove row for re-adding after edit
+                itemListTable.deleteRow(newRow.rowIndex);
+                renumberRows();
+            };
+            cellEdit.appendChild(editBtn);
+
+            // Delete button
+            const delBtn = document.createElement('button');
+            delBtn.textContent = '🗑';
+            delBtn.onclick = function() 
+            {
+                itemListTable.deleteRow(newRow.rowIndex);
+                renumberRows();
+            };
+            cellDelete.appendChild(delBtn);
+
+            updateTotal()
+
+            itemEntryForm.reset();
+            } 
+        else 
+        {
+            alert("Please fill in all fields correctly.");
+        }
+    }
+
+    function renumberRows() 
+    {
+        const itemListTable = document.getElementById('item_list');
+        for (let i = 1; i < itemListTable.rows.length; i++) 
+        {
+            itemListTable.rows[i].cells[0].textContent = i; // Update row number
+        }
+    }
+    function updateTotal() 
+    {
+        const itemListTable = document.getElementById('item_list');
+        let total = 0;
+
+        for (let i = 1; i < itemListTable.rows.length; i++) 
+        {
+            const amount = parseFloat(itemListTable.rows[i].cells[4].textContent);
+            total += amount;
+        }
+
+        const cgst = total * 0.025;
+        const sgst = total * 0.025;
+        const finalTotal = total + cgst + sgst;
+
+        document.getElementById('total_amount').textContent = total.toFixed(2);
+        document.getElementById('cgst').textContent = cgst.toFixed(2);
+        document.getElementById('sgst').textContent = sgst.toFixed(2);
+        document.getElementById('final').textContent = finalTotal.toFixed(2);
+    }
+
+    function printInvoice() 
+    {
+        const invDetForm = document.getElementById('inv_det');
+        if (!invDetForm.checkValidity()) 
+        {
+            alert("Please fill in all invoice details correctly.");
+            return;
+        }
+        window.print();
+    }
+</script>
