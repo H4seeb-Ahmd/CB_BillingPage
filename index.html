@@ -70,7 +70,7 @@
                         <td><input type="number" step="0.01" style="width: 75px; font-family: monospace;" min="0.01" onblur="this.value=this.value.trim();"></td>
                         <td><input type="number" step="1" style="width: 75px; font-family: monospace;" min="1" onblur="this.value=this.value.trim();"></td>
                         <td><button type="button" onclick="addItem()" style="font-family: monospace;">+</button></td>
-                        <td><input type="reset" style="font-family: monospace;" title="CLEAR" value="×"></td>
+                        <td><button type="button" onclick="removeEntry()" style="font-family: monospace;">×</button></td>
                     </form>
                 </tr>
             </table>
@@ -131,6 +131,9 @@
 </html>
 
 <script>
+    let editMode = false;
+    let editRow = null;
+
     function addItem()
     {
         const itemEntryForm = document.getElementById('item_entry');
@@ -143,6 +146,25 @@
         {
             const itemListTable = document.getElementById('item_list');
             const insertIndex = itemListTable.rows.length - 4;
+            
+            if (editMode && editRow) 
+            {
+            // Update the row in place
+            editRow.cells[1].textContent = productName;
+            editRow.cells[2].textContent = rate.toFixed(2);
+            editRow.cells[3].textContent = qty;
+            editRow.cells[4].textContent = amount.toFixed(2);
+
+            // Restore background
+            editRow.style.backgroundColor = "rgb(252, 248, 244)";
+            editMode = false;
+            editRow = null;
+            renumberRows();
+            updateTotal();
+            itemEntryForm.reset();
+            return;
+            }
+            
             const newRow = itemListTable.insertRow(insertIndex);
             
             const cellNo = newRow.insertCell(0);
@@ -171,13 +193,13 @@
             editBtn.textContent = '✎';
             editBtn.onclick = function() 
             {
-                // Simple edit: fill form with row data
+                if (editMode) return; // Prevent editing multiple rows at once
+                editMode = true;
+                editRow = newRow;
+                newRow.style.backgroundColor = "bisque";
                 itemEntryForm.elements[0].value = cellName.textContent;
                 itemEntryForm.elements[1].value = cellRate.textContent;
                 itemEntryForm.elements[2].value = cellQty.textContent;
-                // Remove row for re-adding after edit
-                itemListTable.deleteRow(newRow.rowIndex);
-                renumberRows();
             };
             cellEdit.appendChild(editBtn);
 
@@ -198,6 +220,21 @@
         else 
         {
             alert("Please fill in all fields correctly.");
+        }
+    }
+
+    function removeEntry() 
+    {
+        const itemEntryForm = document.getElementById('item_entry');
+        if (editMode && editRow) {
+            // Cancel edit: restore background, clear form, exit edit mode
+            editRow.style.backgroundColor = "rgb(252, 248, 244)";
+            editMode = false;
+            editRow = null;
+            itemEntryForm.reset();
+        } else {
+            // Optionally, clear the form if not editing
+            itemEntryForm.reset();
         }
     }
 
