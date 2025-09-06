@@ -1,0 +1,117 @@
+*
+{
+    font-family: monospace;
+}
+
+button
+{
+    height: 16px;
+    font-size: 10px;
+    text-align: center;
+    vertical-align: middle;
+    
+}
+
+body
+{
+    background-color: hsl(33, 100%, 88%);
+}
+
+header
+{
+    background-color: hsl(33, 100%, 88%);
+}
+
+main
+{
+    background-color: hsl(30, 57%, 97%);
+}
+
+footer
+{
+    background-color: hsl(33, 100%, 88%);
+}
+
+table
+{
+    border-collapse: collapse;
+}
+
+.text_cell
+{
+    text-align: left;
+}
+
+.num_cell
+{
+    text-align: right;
+}
+
+.center_cell
+{
+    text-align: center;
+}
+
+.inv_det_entry
+{
+    width: 200px;
+}
+
+.cell75
+{
+    width: 75px;
+}
+
+.cell250
+{
+    width: 250px;
+}
+
+.general_cell
+{
+    border: 1px solid black;
+    padding: 0px;
+}
+
+.borderless_cell
+{
+    border: none
+}
+
+.topless_cell
+{
+    border-top: none;
+}
+
+.bottomless_cell
+{
+    border-bottom: none;
+}
+
+.button_cell
+{
+    border: none;
+}
+
+#print_button
+{
+    font-size: 16px;
+    height: 32px;
+    width: 32px;
+    line-height: 16px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.input-error {
+    border: 2px solid red !important;
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
