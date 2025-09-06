@@ -6,16 +6,18 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CB Billing Page</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="cb_bill.js"></script>
     </head>
     
-    <body style="font-family: monospace; background-color: bisque;">
+    <body>
         
-        <header style="background-color: bisque;">
+        <header>
             <h1>CB BILLING PAGE</h1>
             <br><hr>
         </header>
         
-        <main style="background-color: rgb(252, 248, 244);">
+        <main>
             <br>
             <u>INVOICE DETAILS</u>
             <br><br>
@@ -23,94 +25,158 @@
                 <table>
 
                     <tr>
-                        <th style="text-align: left;"><label for="inv_num">INVOICE NO.:</label></th>
-                        <td style="text-align: left;"><input type="text" id="inv_num" required style="font-family: monospace; width: 200px;" onblur="this.value=this.value.trim();"></td>
+                        <th class="text_cell"><label for="inv_num">INVOICE NO.:</label></th>
+                        <td class="text_cell">
+                            <input 
+                            type="text" 
+                            id="inv_num" 
+                            class="inv_det_entry" 
+                            onblur="this.value=this.value.trim();"
+                            required>
+                        </td>
                     </tr>
 
                     <tr>
-                        <th style="text-align: left;"><label for="Name">Name:</label></th>
-                        <td style="text-align: left;"><input type="text" id="Name" required style="font-family: monospace; width: 200px;" onblur="this.value=this.value.trim();"></td>
+                        <th class="text_cell"><label for="Name">Name:</label></th>
+                        <td class="text_cell">
+                            <input 
+                            type="text" 
+                            id="Name" 
+                            class="inv_det_entry" 
+                            onblur="this.value=this.value.trim();" 
+                            required>
+                        </td>
                     </tr>
 
                     <tr>
-                        <th style="text-align: left;"><label for="ph">Phone:</label></th>
-                        <td style="text-align: left;"><input type="tel" id="ph" pattern="[0-9+\-]{10}" required style="font-family: monospace; width: 200px;" onblur="this.value=this.value.trim();" oninput="this.value=this.value.replace(/[^0-9+\-]/g, '');"></td>
+                        <th class="text_cell"><label for="ph">Phone:</label></th>
+                        <td class="text_cell">
+                            <input 
+                            type="tel" 
+                            id="ph" 
+                            pattern="[0-9+\-]{10}" 
+                            class="inv_det_entry" 
+                            onblur="this.value=this.value.trim();" 
+                            oninput="this.value=this.value.replace(/[^0-9+\-]/g, '');"
+                            required>
+                        </td>
                     </tr>
 
                     <tr>
-                        <th style="text-align: left;"><label for="addr">Address:</label></th>
-                        <td style="text-align: left;"><input type="text" id="addr" required style="font-family: monospace; width: 200px;" onblur="this.value=this.value.trim();"></td>
+                        <th class="text_cell"><label for="addr">Address:</label></th>
+                        <td class="text_cell">
+                            <input 
+                            type="text" 
+                            id="addr" 
+                            class="inv_det_entry" 
+                            onblur="this.value=this.value.trim();"
+                            required>
+                        </td>
                     </tr>
 
                     <tr>
-                        <th style="text-align: left;"><label for="date">Date:</label></th>
-                        <td style="text-align: left;"><input type="date" id="date" required style="font-family: monospace; width: 200px;" onblur="this.value=this.value.trim();"></td>
+                        <th class="text_cell"><label for="date">Date:</label></th>
+                        <td class="text_cell">
+                            <input type="date" 
+                            id="date" 
+                            class="inv_det_entry" 
+                            onblur="this.value=this.value.trim();" 
+                            required>
+                        </td>
                     </tr>
 
                     <tr>
                         <td></td>
-                        <td style="text-align: right;"><input type="reset" style="font-family: monospace;" title="CLEAR" value="CLEAR"></td>
+                        <td class="center_cell">
+                            <input 
+                            type="reset" 
+                            title="CLEAR" 
+                            value="CLEAR">
+                        </td>
                     </tr>
                 </table>
             </form>
 
             <br><hr><br>
 
-            <table>
-                <tr>
-                    <th width="10"></th>
-                    <th width="100" style="text-align: left;">Product Name:</th>
-                    <th width="10" style="text-align: right;">Rate:</th>
-                    <th width="10" style="text-align: right;">Qty:</th>
-                </tr>
-                <tr>
-                    <form id="item_entry">
-                        <td style="width: 75px;"></td>
-                        <td><input type="text" style="width: 250px; font-family: monospace;" onblur="this.value=this.value.trim();"></td>
-                        <td><input type="number" step="0.01" style="width: 75px; font-family: monospace;" min="0.01" onblur="this.value=this.value.trim();"></td>
-                        <td><input type="number" step="1" style="width: 75px; font-family: monospace;" min="1" onblur="this.value=this.value.trim();"></td>
-                        <td><button type="button" onclick="addItem()" style="font-family: monospace;">+</button></td>
-                        <td><button type="button" onclick="removeEntry()" style="font-family: monospace;">×</button></td>
-                    </form>
-                </tr>
-            </table>
+            <form id="item_entry">
+                <table>
+                    <tr>
+                        <th width="10"></th>
+                        <th class="text_cell" width="100">Product Name:</th>
+                        <th width="10" class="num_cell">Rate:</th>
+                        <th width="10" class="num_cell">Qty:</th>
+                    </tr>
+                    <tr>
+                        
+                            <td class="cell75"></td>
+                            <td>
+                                <input 
+                                class="general_cell cell250"
+                                type="text" 
+                                onblur="this.value=this.value.trim();"
+                                required>
+                            </td>
+                            <td>
+                                <input 
+                                class="general_cell cell75"
+                                type="number" 
+                                step="0.01" 
+                                min="0.01" 
+                                onblur="this.value=this.value.trim();"
+                                required>
+                            </td>
+                            <td>
+                                <input 
+                                class="general_cell cell75"
+                                type="number" 
+                                step="1" 
+                                min="1" 
+                                onblur="this.value=this.value.trim();"
+                                required>
+                            </td>
+                            <td class="general_cell button_cell"><button type="button" onclick="addItem()">+</button></td>
+                            <td class="general_cell button_cell"><button type="button" onclick="removeEntry()">×</button></td>
+                    </tr>
+                </table>
+            </form>
             <hr>
-            <table border="1" id="item_list">
+            <table id="item_list">
                 <tr>
-                    <th style="width: 75px; text-align: center;">No.</th>
-                    <th style="width: 250px; text-align: left;">Product Name</th>
-                    <th style="width: 75px; text-align: right;">Rate(₹)</th>
-                    <th style="width: 75px; text-align: right;">Qty</th>
-                    <th style="width: 75px; text-align: right;">Amount(₹)</th>
+                    <th class="center_cell general_cell cell75">No.</th>
+                    <th class="text_cell general_cell cell250">Product Name</th>
+                    <th class="num_cell general_cell cell75">Rate(₹)</th>
+                    <th class="num_cell general_cell cell75">Qty</th>
+                    <th class="num_cell general_cell cell75">Amount(₹)</th>
                 </tr>
 
                 <tr>
-                    <td style="border: none;"></td>
-                    <td style="border: none;"></td>
-                    <th style="width: 75px; text-align: left;">Totals</th>
-                    <td style="width: 75px; text-align: right;" id="total_qty">0</td>
-                    <td style="width: 75px; text-align: right;" id="total_amount">0.00</td>
+                    <td class="borderless_cell"></td>
+                    <td class="borderless_cell"></td>
+                    <th class="text_cell general_cell cell75">Totals</th>
+                    <td class="num_cell general_cell cell75" id="total_qty">0</td>
+                    <td class="num_cell general_cell cell75" id="total_amount">0.00</td>
                 </tr>
 
                 <tr>
-                    <td style="border: none;"></td>
-                    <td style="border: none;"></td>
-                    <th colspan="2" style="width: 75px; text-align: left; border-bottom: none;">CGST(2.5%)</th>
-                    <td style="width: 75px; text-align: right; border-bottom: none;" id="cgst">0.00</td>
+                    <td class="borderless_cell"></td>
+                    <td class="borderless_cell"></td>
+                    <th class="text_cell general_cell cell75 bottomless_cell" colspan="2" >CGST(2.5%)</th>
+                    <td class="num_cell general_cell cell75 bottomless_cell" id="cgst">0.00</td>
                 </tr>
 
                 <tr>
-                    <td style="border: none;"></td>
-                    <td style="border: none;"></td>
-                    <th colspan="2" style="width: 75px; text-align: left; border-top: none;">SGST(2.5%)</th>
-                    <td style="width: 75px; text-align: right; border-top: none;" id="sgst">0.00</td>
+                    <td class="borderless_cell"></td>
+                    <td class="borderless_cell"></td>
+                    <th class="text_cell general_cell cell75 topless_cell" colspan="2" >SGST(2.5%)</th>
+                    <td class="num_cell general_cell cell75 topless_cell" id="sgst">0.00</td>
                 </tr>
 
                 <tr>
-                    <td style="border: none;"></td>
-                    <td style="border: none;"></td>                    
-                    <th colspan="2" style="width: 75px; text-align: left;">Final(₹)</th>
-                    <td style="width: 75px; text-align: right;" id="final">0.00</td>
+                    <td class="borderless_cell"></td>
+                    <td class="borderless_cell"></td>                    
+                    <th class="text_cell general_cell cell75" colspan="2" >Final(₹)</th>
+                    <td class="num_cell general_cell cell75" id="final">0.00</td>
                 </tr>
                 
             </table>
@@ -118,171 +184,14 @@
 
             <br>
 
-            <button onclick="printInvoice()">🖶</button>
+            <button onclick="printInvoice()" id="print_button" title="Print Invoice">🖶</button>
             <br>
         </main>
         
-        <footer style="background-color: bisque;">
+        <footer>
             <hr><br>
             &copy; 2025 All rights reserved.
         </footer>
 
     </body>
 </html>
-
-<script>
-    let editMode = false;
-    let editRow = null;
-
-    function addItem()
-    {
-        const itemEntryForm = document.getElementById('item_entry');
-        const productName = itemEntryForm.elements[0].value;
-        const rate = parseFloat(itemEntryForm.elements[1].value);
-        const qty = parseInt(itemEntryForm.elements[2].value);
-        const amount = rate * qty;
-
-        if (productName && !isNaN(rate) && !isNaN(qty) && rate >= 0.01 && qty >= 1) 
-        {
-            const itemListTable = document.getElementById('item_list');
-            const insertIndex = itemListTable.rows.length - 4;
-            
-            if (editMode && editRow) 
-            {
-            // Update the row in place
-            editRow.cells[1].textContent = productName;
-            editRow.cells[2].textContent = rate.toFixed(2);
-            editRow.cells[3].textContent = qty;
-            editRow.cells[4].textContent = amount.toFixed(2);
-
-            // Restore background
-            editRow.style.backgroundColor = "rgb(252, 248, 244)";
-            editMode = false;
-            editRow = null;
-            renumberRows();
-            updateTotal();
-            itemEntryForm.reset();
-            return;
-            }
-            
-            const newRow = itemListTable.insertRow(insertIndex);
-            
-            const cellNo = newRow.insertCell(0);
-            const cellName = newRow.insertCell(1);
-            const cellRate = newRow.insertCell(2);
-            const cellQty = newRow.insertCell(3);
-            const cellAmount = newRow.insertCell(4);
-            const cellEdit = newRow.insertCell(5);
-            const cellDelete = newRow.insertCell(6);
-
-            cellNo.textContent = itemListTable.rows.length - 5; // Adjust for header and total rows
-            cellName.textContent = productName;
-            cellRate.textContent = rate.toFixed(2);
-            cellQty.textContent = qty;
-            cellAmount.textContent = amount.toFixed(2);
-
-            // Style for product name cell to handle long names
-            cellName.style.width = "250px";
-            cellName.style.maxWidth = "250px";
-            cellName.style.wordWrap = "break-word";
-            cellName.style.overflowWrap = "break-word";
-            cellName.style.whiteSpace = "normal";
-
-            // Edit button
-            const editBtn = document.createElement('button');
-            editBtn.textContent = '✎';
-            editBtn.onclick = function() 
-            {
-                if (editMode) return; // Prevent editing multiple rows at once
-                editMode = true;
-                editRow = newRow;
-                newRow.style.backgroundColor = "bisque";
-                itemEntryForm.elements[0].value = cellName.textContent;
-                itemEntryForm.elements[1].value = cellRate.textContent;
-                itemEntryForm.elements[2].value = cellQty.textContent;
-            };
-            cellEdit.appendChild(editBtn);
-
-            // Delete button
-            const delBtn = document.createElement('button');
-            delBtn.textContent = '🗑';
-            delBtn.onclick = function() 
-            {
-                itemListTable.deleteRow(newRow.rowIndex);
-                renumberRows();
-            };
-            cellDelete.appendChild(delBtn);
-
-            updateTotal()
-
-            itemEntryForm.reset();
-            } 
-        else 
-        {
-            alert("Please fill in all fields correctly.");
-        }
-    }
-
-    function removeEntry() 
-    {
-        const itemEntryForm = document.getElementById('item_entry');
-        if (editMode && editRow) {
-            // Cancel edit: restore background, clear form, exit edit mode
-            editRow.style.backgroundColor = "rgb(252, 248, 244)";
-            editMode = false;
-            editRow = null;
-            itemEntryForm.reset();
-        } else {
-            // Optionally, clear the form if not editing
-            itemEntryForm.reset();
-        }
-    }
-
-    function renumberRows() 
-    {
-        const itemListTable = document.getElementById('item_list');
-        for (let i = 1; i < itemListTable.rows.length - 4; i++) 
-        {
-            itemListTable.rows[i].cells[0].textContent = i; // Update row number
-        }
-    }
-    function updateTotal() 
-    {
-        const itemListTable = document.getElementById('item_list');
-        let total = 0;
-
-        for (let i = 1; i < itemListTable.rows.length - 4; i++) 
-        {
-            const amount = parseFloat(itemListTable.rows[i].cells[4].textContent);
-            total += amount;
-        }
-
-        const cgst = total * 0.025;
-        const sgst = total * 0.025;
-        const finalTotal = total + cgst + sgst;
-
-        let totalQty = 0;
-        for (let i = 1; i < itemListTable.rows.length - 4; i++) 
-        {
-            const qty = parseInt(itemListTable.rows[i].cells[3].textContent);
-            totalQty += qty;
-        }
-
-        document.getElementById('total_qty').textContent = totalQty; // Number of items
-        document.getElementById('total_amount').textContent = total.toFixed(2);
-        document.getElementById('cgst').textContent = cgst.toFixed(2);
-        document.getElementById('sgst').textContent = sgst.toFixed(2);
-        document.getElementById('final').textContent = finalTotal.toFixed(2);
-    }
-
-    function printInvoice() 
-    {
-        const invDetForm = document.getElementById('inv_det');
-        if (!invDetForm.checkValidity()) 
-        {
-            alert("Please fill in all invoice details correctly.");
-            return;
-        }
-        window.print();
-    }
-</script>
